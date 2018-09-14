@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+
+	<p>
+		<a href="{% url 'accueil' %}">Retour à la liste des articles</a>
+	</p>
+
+	<h2 class="titre-article">{{ article.titre|title }}</h2>
+	<p class="infos-article">Par {{ article.auteur }}, le {{ article.date }}</p>
+
+	<div class="contenu-article">
+		{{ article.contenu|safe }}
+	</div>
+
+	<h3 class="titre-comments">Commentaires</h3>
+
+	<h4>Poster votre propre commentaire</h4>
+	<form method="post" action="{% url 'creer_comment' id=article.id %}" class="pure-form">
+		<!-- Formulaire pour les commentaires des visiteurs -->
+		{% csrf_token %}
+    	{{ form.as_p }}
+		<p style="text-align:center">
+			<input class="pure-button pure-button-primary" type="submit" />
+		</p>
+	</form>
+
+	<div class="clear"></div>
+	<div class="commentaire">
+		{% for comment in commentaires %}
+			<p style="color:green">{{comment.pseudo|upper}}, {{comment.date}} :</p>
+			<p >{{ comment.contenu|safe }}</p>
+			{% empty %}
+			<p>Aucun commentaire(s) pour cet article pour le moment !</p>
+		{% endfor %}
+	</div>
+
+{% endblock %}
