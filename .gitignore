@@ -1,6 +1,10 @@
 # Author : Ababacar Haidara
 # Date : 15 Septembre 2018
 
-
+# Fichier
 *.txt
+# Dossier
 bob/
+
+# Bdd
+.sqlite3
